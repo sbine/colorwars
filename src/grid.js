@@ -47,7 +47,7 @@ class Grid {
         // higher multiplier for big changes at once
         const oldColor = this.cells[0]?.color
 
-        console.log(`player changed to color from ${oldColor} to ${newColor}`)
+        this.options.debug && console.log(`player changed color from ${oldColor} to ${newColor}`)
 
         this.tilesChanged = []
         this.newTiles = []

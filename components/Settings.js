@@ -1,17 +1,20 @@
-import { Modal, Text, TouchableOpacity, View } from 'react-native'
+import { Modal, TouchableOpacity, View } from 'react-native'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faGear } from '@fortawesome/free-solid-svg-icons/faGear';
-import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faCheckSquare } from '@fortawesome/free-solid-svg-icons/faCheckSquare'
+import { faGear } from '@fortawesome/free-solid-svg-icons/faGear'
+import { faSquare } from '@fortawesome/free-solid-svg-icons/faSquare'
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
 import tw from 'twrnc'
 import ColorSelector from './ColorSelector'
+import Text from './Text'
 
-export default ({ currentTheme, onChangeTheme = () => { }, themes }) => {
+export default ({ currentTheme, darkMode, onChangeDarkMode = () => { }, onChangeTheme = () => { }, themes }) => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <View style={tw`items-end py-2`}>
+        <View style={tw`items-end mt-2`}>
             <TouchableOpacity
                 hitSlop={{
                     top: 10,
@@ -22,7 +25,7 @@ export default ({ currentTheme, onChangeTheme = () => { }, themes }) => {
                 style={tw`relative overflow-hidden mx-4 h-8 w-8`}
                 onPress={() => setIsOpen(true)}
             >
-                <FontAwesomeIcon icon={faGear} size={30} />
+                <FontAwesomeIcon icon={faGear} size={30} style={tw`dark:text-gray-100`} />
             </TouchableOpacity>
 
             <Modal
@@ -30,26 +33,40 @@ export default ({ currentTheme, onChangeTheme = () => { }, themes }) => {
                 transparent={false}
                 visible={isOpen}
                 onRequestClose={() => {
-                    setIsOpen(!isOpen);
+                    setIsOpen(!isOpen)
                 }}
             >
                 <SafeAreaProvider>
-                    <SafeAreaView style={tw`w-full h-full px-4 py-2`}>
+                    <SafeAreaView style={tw`w-full h-full bg-white dark:bg-black px-4 py-2`}>
                         <TouchableOpacity style={tw`self-end`} onPress={() => setIsOpen(false)}>
-                            <FontAwesomeIcon icon={faTimes} size={34} />
+                            <FontAwesomeIcon icon={faTimes} size={34} style={tw`dark:text-gray-100`} />
                         </TouchableOpacity>
 
-                        <Text style={tw`text-3xl`}>Theme</Text>
+                        <View style={tw`my-2`}>
+                            <Text style={tw`text-3xl`}>Theme</Text>
 
-                        {themes.map((theme, index) => (
-                            <ColorSelector
-                                key={index}
-                                colors={theme}
-                                size='small'
-                                style={tw`${currentTheme === index ? 'border-2 border-gray-300' : ''}`}
-                                onChange={onChangeTheme}
-                            />
-                        ))}
+                            {themes.map((theme, index) => (
+                                <ColorSelector
+                                    key={index}
+                                    colors={theme}
+                                    size='small'
+                                    style={tw`${currentTheme === index ? 'border-2 border-gray-300 dark:border-gray-600' : ''}`}
+                                    onChange={onChangeTheme}
+                                />
+                            ))}
+                        </View>
+
+                        <View style={tw`flex-row items-center justify-between mt-4`}>
+                            <Text style={tw`text-3xl`}>Dark Mode</Text>
+
+                            <TouchableOpacity onPress={() => onChangeDarkMode(!darkMode)}>
+                                <FontAwesomeIcon
+                                    icon={darkMode ? faCheckSquare : faSquare}
+                                    size={34}
+                                    style={tw`text-gray-300 dark:text-gray-100`}
+                                />
+                            </TouchableOpacity>
+                        </View>
                     </SafeAreaView>
                 </SafeAreaProvider>
             </Modal>
