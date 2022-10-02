@@ -37,14 +37,14 @@ export default ({ currentTheme, darkMode, onChangeDarkMode = () => { }, onChange
                 }}
             >
                 <SafeAreaProvider>
-                    <SafeAreaView style={tw`flex-1 bg-white dark:bg-black px-4 py-2`}>
-                        <View style={tw`w-full h-full max-w-3xl mx-auto`}>
+                    <SafeAreaView style={tw`flex-1 bg-white dark:bg-black`}>
+                        <View style={tw`w-full h-full max-w-3xl mx-auto px-4 py-2`}>
                             <TouchableOpacity style={tw`self-end`} onPress={() => setIsOpen(false)}>
                                 <FontAwesomeIcon icon={faTimes} size={34} style={tw`dark:text-gray-100`} />
                             </TouchableOpacity>
 
                             <View style={tw`my-2`}>
-                                <Text style={tw`text-3xl`}>Theme</Text>
+                                <Text style={tw`text-3xl my-1`}>Theme</Text>
 
                                 {themes.map((theme, index) => (
                                     <ColorSelector
@@ -58,7 +58,7 @@ export default ({ currentTheme, darkMode, onChangeDarkMode = () => { }, onChange
                             </View>
 
                             <View style={tw`flex-row items-center justify-between mt-4`}>
-                                <Text style={tw`text-3xl`}>Dark Mode</Text>
+                                <Text style={tw`text-3xl my-1`}>Dark Mode</Text>
 
                                 <TouchableOpacity onPress={() => onChangeDarkMode(!darkMode)}>
                                     <FontAwesomeIcon
