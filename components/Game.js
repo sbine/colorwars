@@ -58,7 +58,7 @@ export default ({ darkMode, setDarkMode }) => {
     }
 
     return (
-        <View style={tw`flex-1`}>
+        <View style={tw`flex-1 w-full max-w-3xl mx-auto`}>
             <Settings
                 currentTheme={currentTheme}
                 darkMode={darkMode}
