@@ -7,4 +7,4 @@ Battle for territory in this React Native game!
 
 Light Mode | Dark Mode
 ----- | -----
-<img width="534" alt="image" src="https://user-images.githubusercontent.com/1902973/193432523-9528b201-7301-4f1a-95bf-6f73e968b6a6.png"> | <img width="534" alt="image" src="https://user-images.githubusercontent.com/1902973/193432507-5ebfbb31-30fd-4358-82d1-afd7099c6b31.png">
+<img width="434" alt="image" src="https://user-images.githubusercontent.com/1902973/193473341-7f9368c9-0ef6-46ac-9530-fcc06bbae7b7.png"> | <img width="434" alt="image" src="https://user-images.githubusercontent.com/1902973/193473343-faa5d2cc-bfb3-43a5-ba54-e60c86de0e15.png">
