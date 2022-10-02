@@ -15,6 +15,7 @@ class Grid {
         this.cells = []
         const width = this.options.width || 4
         const height = this.options.height || 4
+        const startingColor = this.options.startingColor
 
         let index = 0
         for (let y = 0; y < height; y++) {
@@ -25,8 +26,8 @@ class Grid {
             }
         }
 
-        if (this.options.startingColor != undefined) {
-            this.cells[0] = new Cell({ x: 0, y: 0, color: this.options.startingColor })
+        if (startingColor != undefined) {
+            this.cells[0] = new Cell({ x: 0, y: 0, color: startingColor })
         }
 
         this.totalTiles = index
@@ -55,7 +56,7 @@ class Grid {
             this.changeCellColor(0, oldColor, newColor)
         }
 
-        return this.newTiles.length
+        return this.tilesChanged.length
     }
 
     changeCellColor(index, oldColor, newColor) {
@@ -75,9 +76,9 @@ class Grid {
             index = this.getIndexAt(cell.x - 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === oldColor) {
+            if (otherCell && otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell.color === newColor) {
+            } else if (otherCell && otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -86,9 +87,9 @@ class Grid {
             index = this.getIndexAt(cell.x + 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === oldColor) {
+            if (otherCell && otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell.color === newColor) {
+            } else if (otherCell && otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -97,9 +98,9 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y - 1)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === oldColor) {
+            if (otherCell && otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell.color === newColor) {
+            } else if (otherCell && otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -108,9 +109,9 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y + 1)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === oldColor) {
+            if (otherCell && otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell.color === newColor) {
+            } else if (otherCell && otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -130,7 +131,7 @@ class Grid {
             index = this.getIndexAt(cell.x - 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === cell.color) {
+            if (otherCell && otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
@@ -139,7 +140,7 @@ class Grid {
             index = this.getIndexAt(cell.x + 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === cell.color) {
+            if (otherCell && otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
@@ -148,7 +149,7 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y - 1)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === cell.color) {
+            if (otherCell && otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
@@ -157,7 +158,7 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y + 1)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === cell.color) {
+            if (otherCell && otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }

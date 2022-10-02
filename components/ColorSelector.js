@@ -1,9 +1,9 @@
 import { TouchableOpacity, View } from 'react-native'
 import tw from 'twrnc'
 
-export default ({ currentColor, colors = [], disabled = false, onChange = () => { }, size = 'default', style = {} }) => {
+export default ({ currentColor, colors = [], disabled = false, onChange = () => { }, size = 'default', style = {} }, ...props) => {
     return (
-        <View style={tw.style(`flex-row items-center justify-center p-4`, { 'web:min-h-24': size !== 'small' }, style)}>
+        <View style={tw.style(`flex-row items-center justify-center p-4`, { 'web:min-h-36': size !== 'small' }, style)}>
             {colors.map((color, index) =>
                 <TouchableOpacity
                     key={color}
@@ -18,7 +18,8 @@ export default ({ currentColor, colors = [], disabled = false, onChange = () => 
                         right: 5,
                     }}
                     style={tw.style(`h-12 w-12 bg-${color} mx-4`, { 'h-8 w-8 mx-1': size === 'small' }, { 'border-4 border-gray-500': currentColor == index })}
-                    onPress={color => (color != currentColor) && onChange(index)}
+                    onPress={color => color != currentColor && onChange(index, currentColor)}
+                    {...props}
                 />
             )}
         </View>

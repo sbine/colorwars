@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { useEffect, useRef, useState } from 'react'
+import { FlatList, View } from 'react-native'
 import ColorSelector from './ColorSelector'
-import Grid from './Grid'
+import GameOver from './GameOver'
 import Scoreboard from './Scoreboard'
-import Turn from '../src/turn'
 import Settings from './Settings'
-import Text from './Text'
+import Game from '../src/game'
 import tw from 'twrnc'
 
 const themes = [
@@ -23,38 +22,42 @@ const themes = [
     ],
 ]
 
-export default ({ darkMode, setDarkMode }) => {
-    const [currentColor, setCurrentColor] = useState(0)
-    const [gameOver, setGameOver] = useState(false)
-    const [lastColor, setLastColor] = useState()
-    const [score, setScore] = useState(0)
-    const [turns, setTurns] = useState([])
-    const [currentTheme, setCurrentTheme] = useState(0)
+const columns = 11
+const rows = 15
 
-    const columns = 11
-    const rows = 15
+export default ({ darkMode, setDarkMode }) => {
+    const [cells, setCells] = useState([])
+    const [currentColor, setCurrentColor] = useState(0)
+    const [currentTheme, setCurrentTheme] = useState(0)
+    const game = useRef(new Game({
+        columns,
+        rows,
+        colors: themes[currentTheme],
+        startingColor: currentColor,
+    }))
+
+    const gameOver = game.current.gameOver
+    const highScore = game.current.highScore
+    const turns = game.current.turns?.length
 
     useEffect(() => {
-        if (turns.length && turns[0].tilesChanged + score === (rows * columns)) {
-            setGameOver(true)
-        }
-    }, [turns])
+        // start a new game when loading in
+        // @todo save/resume games
+        restart()
+    }, [])
 
-    const changeColor = (color) => {
-        setLastColor(currentColor)
+    const restart = () => {
+        game.current.start()
+        setCells(game.current.grid.cells)
+    }
+
+    const changeColor = (color, lastColor) => {
+        game.current.changeColor(color)
         setCurrentColor(color)
     }
 
-    const changeTheme = () => {
+    const changeTheme = (theme) => {
         setCurrentTheme((currentTheme + 1) % themes.length)
-    }
-
-    const updateScore = (newScore) => {
-        turns.push(new Turn(lastColor, currentColor, newScore))
-        setTurns(turns)
-        setScore(score + newScore)
-
-
     }
 
     return (
@@ -68,26 +71,33 @@ export default ({ darkMode, setDarkMode }) => {
             />
 
             <Scoreboard
-                score={score}
-                turns={turns.length}
+                highScore={highScore}
+                turns={turns}
             />
 
-            {gameOver ? <Text>Game Over!</Text> : null}
+            {gameOver && <GameOver onRestart={restart} />}
 
-            <Grid
-                colors={themes[currentTheme]}
-                currentColor={currentColor}
-                height={rows}
-                width={columns}
-                onScoreChange={updateScore}
-            />
+            <View style={tw`flex-grow items-center justify-center`}>
+                <FlatList
+                    data={cells}
+                    getItemLayout={(data, index) => (
+                        { length: 8 * 4, offset: 8 * 4 * index, index }
+                    )}
+                    initialNumToRender={cells.length}
+                    numColumns={columns}
+                    refreshing={!cells.length}
+                    removeClippedSubviews={false}
+                    renderItem={({ item }) => <View style={tw`h-8 w-8 bg-${themes[currentTheme][item.color]} border border-gray-100`} />}
+                    scrollEnabled={false}
+                />
+            </View>
 
-            <ColorSelector
+            {!gameOver && <ColorSelector
                 colors={themes[currentTheme]}
                 currentColor={currentColor}
                 disabled={gameOver}
-                onChange={color => changeColor(color)}
-            />
+                onChange={(color, lastColor) => changeColor(color, lastColor)}
+            />}
         </View>
     )
 }
