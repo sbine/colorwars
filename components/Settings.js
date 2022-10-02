@@ -37,7 +37,7 @@ export default ({ currentTheme, darkMode, onChangeDarkMode = () => { }, onChange
                 }}
             >
                 <SafeAreaProvider>
-                    <SafeAreaView style={tw`w-full h-full bg-white dark:bg-black px-4 py-2`}>
+                    <SafeAreaView style={tw`w-full h-full max-w-3xl mx-auto bg-white dark:bg-black px-4 py-2`}>
                         <TouchableOpacity style={tw`self-end`} onPress={() => setIsOpen(false)}>
                             <FontAwesomeIcon icon={faTimes} size={34} style={tw`dark:text-gray-100`} />
                         </TouchableOpacity>

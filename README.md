@@ -1,6 +1,8 @@
 # ColorWars
 Battle for territory in this React Native game!
 
+**[Play the demo](https://sbine.github.io/colorwars/)**
+
 ## Screenshots
 
 Light Mode | Dark Mode
