@@ -34,12 +34,6 @@ export default ({ darkMode, setDarkMode }) => {
     const columns = 11
     const rows = 15
 
-    useEffect(() => {
-        if (turns.length && turns[0].tilesChanged + score === (rows * columns)) {
-            setGameOver(true)
-        }
-    }, [turns])
-
     const changeColor = (color) => {
         setLastColor(currentColor)
         setCurrentColor(color)
@@ -51,10 +45,9 @@ export default ({ darkMode, setDarkMode }) => {
 
     const updateScore = (newScore) => {
         turns.push(new Turn(lastColor, currentColor, newScore))
+
         setTurns(turns)
-        setScore(score + newScore)
-
-
+        setScore(newScore)
     }
 
     return (
@@ -72,13 +65,14 @@ export default ({ darkMode, setDarkMode }) => {
                 turns={turns.length}
             />
 
-            {gameOver ? <Text>Game Over!</Text> : null}
+            {gameOver ? <Text style={tw`font-bold uppercase text-center text-lg mb-4`}>Game Over</Text> : null}
 
             <Grid
                 colors={themes[currentTheme]}
                 currentColor={currentColor}
                 height={rows}
                 width={columns}
+                onGameOver={() => setGameOver(true)}
                 onScoreChange={updateScore}
             />
 

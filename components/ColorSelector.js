@@ -3,7 +3,7 @@ import tw from 'twrnc'
 
 export default ({ currentColor, colors = [], disabled = false, onChange = () => { }, size = 'default', style = {} }) => {
     return (
-        <View style={tw.style(`flex-row items-center justify-center p-4`, { 'web:min-h-24': size !== 'small' }, style)}>
+        <View style={tw.style(`flex-row items-center justify-center p-4`, { 'web:min-h-36': size !== 'small' }, style)}>
             {colors.map((color, index) =>
                 <TouchableOpacity
                     key={color}
