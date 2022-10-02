@@ -4,7 +4,7 @@ import Text from './Text'
 
 export default ({ score, turns }) => {
     return (
-        <View style={tw`flex-row justify-between py-4`}>
+        <View style={tw`flex-row items-center justify-between web:min-h-36 py-4`}>
             <Text style={tw`flex-1`} />
 
             <View style={tw`flex-1 items-center`}>
