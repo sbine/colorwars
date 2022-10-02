@@ -1,22 +1,22 @@
 {
   "files": {
-    "app.js": "/colorwars/static/js/app.c8ca97fc.chunk.js",
-    "app.js.map": "/colorwars/static/js/app.c8ca97fc.chunk.js.map",
+    "app.js": "/colorwars/static/js/app.1f2f214c.chunk.js",
+    "app.js.map": "/colorwars/static/js/app.1f2f214c.chunk.js.map",
     "runtime~app.js": "/colorwars/static/js/runtime~app.81b07f48.js",
     "runtime~app.js.map": "/colorwars/static/js/runtime~app.81b07f48.js.map",
-    "static/js/2.66eaad73.chunk.js": "/colorwars/static/js/2.66eaad73.chunk.js",
-    "static/js/2.66eaad73.chunk.js.map": "/colorwars/static/js/2.66eaad73.chunk.js.map",
+    "static/js/2.29bb05df.chunk.js": "/colorwars/static/js/2.29bb05df.chunk.js",
+    "static/js/2.29bb05df.chunk.js.map": "/colorwars/static/js/2.29bb05df.chunk.js.map",
     "favicon-16.png": "/colorwars/favicon-16.png",
     "favicon-32.png": "/colorwars/favicon-32.png",
     "favicon.ico": "/colorwars/favicon.ico",
     "index.html": "/colorwars/index.html",
     "manifest.json": "/colorwars/manifest.json",
     "serve.json": "/colorwars/serve.json",
-    "static/js/2.66eaad73.chunk.js.LICENSE.txt": "/colorwars/static/js/2.66eaad73.chunk.js.LICENSE.txt"
+    "static/js/2.29bb05df.chunk.js.LICENSE.txt": "/colorwars/static/js/2.29bb05df.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime~app.81b07f48.js",
-    "static/js/2.66eaad73.chunk.js",
-    "static/js/app.c8ca97fc.chunk.js"
+    "static/js/2.29bb05df.chunk.js",
+    "static/js/app.1f2f214c.chunk.js"
   ]
 }
