@@ -1,7 +1,7 @@
 {
   "files": {
-    "app.js": "/colorwars/static/js/app.86bc48fb.chunk.js",
-    "app.js.map": "/colorwars/static/js/app.86bc48fb.chunk.js.map",
+    "app.js": "/colorwars/static/js/app.c8ca97fc.chunk.js",
+    "app.js.map": "/colorwars/static/js/app.c8ca97fc.chunk.js.map",
     "runtime~app.js": "/colorwars/static/js/runtime~app.81b07f48.js",
     "runtime~app.js.map": "/colorwars/static/js/runtime~app.81b07f48.js.map",
     "static/js/2.66eaad73.chunk.js": "/colorwars/static/js/2.66eaad73.chunk.js",
@@ -17,6 +17,6 @@
   "entrypoints": [
     "static/js/runtime~app.81b07f48.js",
     "static/js/2.66eaad73.chunk.js",
-    "static/js/app.86bc48fb.chunk.js"
+    "static/js/app.c8ca97fc.chunk.js"
   ]
 }
