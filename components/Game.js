@@ -43,7 +43,7 @@ export default ({ darkMode, setDarkMode }) => {
     useEffect(() => {
         // start a new game when loading in
         // @todo save/resume games
-        // restart()
+        restart()
     }, [])
 
     const restart = () => {
