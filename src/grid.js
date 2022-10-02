@@ -28,16 +28,6 @@ class Grid {
 
         if (startingColor != undefined) {
             this.cells[0] = new Cell({ x: 0, y: 0, color: startingColor })
-
-            // if the x-adjacent cell is the same color, change it so nobody starts with a huge block
-            if (this.cells[1].color === startingColor) {
-                this.cells[1] = new Cell({ x: 0, y: 1, color: (startingColor + 1) % colors.length })
-            }
-
-            // if the y-adjacent cell is the same color, change it so nobody starts with a huge block
-            if (this.cells[width].color === startingColor) {
-                this.cells[width] = new Cell({ x: 0, y: 1, color: (startingColor + 1) % colors.length })
-            }
         }
 
         this.totalTiles = index
@@ -86,9 +76,9 @@ class Grid {
             index = this.getIndexAt(cell.x - 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === oldColor) {
+            if (otherCell && otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell.color === newColor) {
+            } else if (otherCell && otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -97,9 +87,9 @@ class Grid {
             index = this.getIndexAt(cell.x + 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === oldColor) {
+            if (otherCell && otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell.color === newColor) {
+            } else if (otherCell && otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -108,9 +98,9 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y - 1)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === oldColor) {
+            if (otherCell && otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell.color === newColor) {
+            } else if (otherCell && otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -119,9 +109,9 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y + 1)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === oldColor) {
+            if (otherCell && otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell.color === newColor) {
+            } else if (otherCell && otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -141,7 +131,7 @@ class Grid {
             index = this.getIndexAt(cell.x - 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === cell.color) {
+            if (otherCell && otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
@@ -150,7 +140,7 @@ class Grid {
             index = this.getIndexAt(cell.x + 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === cell.color) {
+            if (otherCell && otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
@@ -159,7 +149,7 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y - 1)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === cell.color) {
+            if (otherCell && otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
@@ -168,7 +158,7 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y + 1)
             let otherCell = this.cells[index]
 
-            if (otherCell.color === cell.color) {
+            if (otherCell && otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
