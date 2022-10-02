@@ -37,35 +37,37 @@ export default ({ currentTheme, darkMode, onChangeDarkMode = () => { }, onChange
                 }}
             >
                 <SafeAreaProvider>
-                    <SafeAreaView style={tw`w-full h-full max-w-3xl mx-auto bg-white dark:bg-black px-4 py-2`}>
-                        <TouchableOpacity style={tw`self-end`} onPress={() => setIsOpen(false)}>
-                            <FontAwesomeIcon icon={faTimes} size={34} style={tw`dark:text-gray-100`} />
-                        </TouchableOpacity>
-
-                        <View style={tw`my-2`}>
-                            <Text style={tw`text-3xl`}>Theme</Text>
-
-                            {themes.map((theme, index) => (
-                                <ColorSelector
-                                    key={index}
-                                    colors={theme}
-                                    size='small'
-                                    style={tw`${currentTheme === index ? 'border-2 border-gray-300 dark:border-gray-600' : ''}`}
-                                    onChange={onChangeTheme}
-                                />
-                            ))}
-                        </View>
-
-                        <View style={tw`flex-row items-center justify-between mt-4`}>
-                            <Text style={tw`text-3xl`}>Dark Mode</Text>
-
-                            <TouchableOpacity onPress={() => onChangeDarkMode(!darkMode)}>
-                                <FontAwesomeIcon
-                                    icon={darkMode ? faCheckSquare : faSquare}
-                                    size={34}
-                                    style={tw`text-gray-300 dark:text-gray-100`}
-                                />
+                    <SafeAreaView style={tw`flex-1 bg-white dark:bg-black px-4 py-2`}>
+                        <View style={tw`w-full h-full max-w-3xl mx-auto`}>
+                            <TouchableOpacity style={tw`self-end`} onPress={() => setIsOpen(false)}>
+                                <FontAwesomeIcon icon={faTimes} size={34} style={tw`dark:text-gray-100`} />
                             </TouchableOpacity>
+
+                            <View style={tw`my-2`}>
+                                <Text style={tw`text-3xl`}>Theme</Text>
+
+                                {themes.map((theme, index) => (
+                                    <ColorSelector
+                                        key={index}
+                                        colors={theme}
+                                        size='small'
+                                        style={tw`${currentTheme === index ? 'border-2 border-gray-300 dark:border-gray-600' : ''}`}
+                                        onChange={onChangeTheme}
+                                    />
+                                ))}
+                            </View>
+
+                            <View style={tw`flex-row items-center justify-between mt-4`}>
+                                <Text style={tw`text-3xl`}>Dark Mode</Text>
+
+                                <TouchableOpacity onPress={() => onChangeDarkMode(!darkMode)}>
+                                    <FontAwesomeIcon
+                                        icon={darkMode ? faCheckSquare : faSquare}
+                                        size={34}
+                                        style={tw`text-gray-300 dark:text-gray-100`}
+                                    />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </SafeAreaView>
                 </SafeAreaProvider>
