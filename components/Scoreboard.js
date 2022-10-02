@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import tw from 'twrnc'
+import Text from './Text'
 
 export default ({ score, turns }) => {
     return (
-        <View style={tw`flex-row justify-between p-2`}>
+        <View style={tw`flex-row justify-between py-4`}>
             <Text style={tw`flex-1`} />
 
             <View style={tw`flex-1 items-center`}>
@@ -13,7 +14,9 @@ export default ({ score, turns }) => {
             </View>
 
             <View style={tw`flex-1 items-center justify-center`}>
-                <Text style={tw`text-xl`}>{`${turns} turn${turns !== 1 ? 's' : ''}`}</Text>
+                <Text style={tw`text-lg uppercase mb-1`}>Turns</Text>
+
+                <Text style={tw`text-2xl font-bold`}>{turns}</Text>
             </View>
         </View>
     )
