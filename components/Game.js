@@ -57,6 +57,7 @@ export default ({ darkMode, setDarkMode }) => {
 
     const restart = () => {
         setCurrentColor(game.current.options.startingColor)
+        setCurrentPlayer(0)
         game.current = new Game({
             columns,
             rows,
