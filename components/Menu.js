@@ -32,20 +32,24 @@ export default ({ gameMode, onChangeGameMode = () => { } }) => {
                 open={isOpen}
                 onClose={() => setIsOpen(false)}
             >
-                <View style={tw`flex-row flex-wrap mx-auto`}>
-                    <TouchableOpacity
-                        onPress={() => { onChangeGameMode(1) }}
-                        style={tw.style(`w-1/3 items-center border border-gray-300 rounded p-4 mr-4`, { 'bg-gray-300 dark:bg-gray-700': gameMode === 1 })}
-                    >
-                        <Text style={tw`text-3xl uppercase my-1`}>Solo</Text>
-                    </TouchableOpacity>
+                <View style={tw`flex-row flex-wrap mx-auto py-4`}>
+                    <View style={tw`w-1/2`}>
+                        <TouchableOpacity
+                            onPress={() => { onChangeGameMode(1) }}
+                            style={tw.style(`w-full items-center border border-gray-300 rounded p-4 mr-4`, { 'bg-gray-300 dark:bg-gray-700': gameMode === 1 })}
+                        >
+                            <Text style={tw`text-3xl uppercase my-1`}>Solo</Text>
+                        </TouchableOpacity>
+                    </View>
 
-                    <TouchableOpacity
-                        onPress={() => { onChangeGameMode(2) }}
-                        style={tw.style(`w-1/3 items-center border border-gray-300 rounded p-4 ml-4`, { 'bg-gray-300 dark:bg-gray-700': gameMode === 2 })}
-                    >
-                        <Text style={tw`text-3xl uppercase my-1`}>Duo</Text>
-                    </TouchableOpacity>
+                    <View style={tw`w-1/2`}>
+                        <TouchableOpacity
+                            onPress={() => { onChangeGameMode(2) }}
+                            style={tw.style(`w-full items-center border border-gray-300 rounded p-4 ml-4`, { 'bg-gray-300 dark:bg-gray-700': gameMode === 2 })}
+                        >
+                            <Text style={tw`text-3xl uppercase my-1`}>Duo</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </Modal>
         </View>
