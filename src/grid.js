@@ -43,17 +43,17 @@ class Grid {
         return this.cells.findIndex((cell) => cell.x == x && cell.y == y)
     }
 
-    setColor(newColor) {
-        // @TODO: keep track of high score; bonuses for changing many cells in any given turn
-        // higher multiplier for big changes at once
-        const oldColor = this.cells[0]?.color
-
-        this.options.debug && console.log(`player changed color from ${oldColor} to ${newColor}`)
-
+    setColor(newColor, player) {
+        // @TODO: bonuses/multiplier for changing many cells in any given turn
+        const cellIndex = player == 1 ? this.cells.length - 1 : 0
+        const oldColor = this.cells[cellIndex]?.color
         this.tilesChanged = []
         this.newTiles = []
+
+        this.options.debug && console.log(`player ${player} changed color from ${this.options.colors[oldColor]} to ${this.options.colors[newColor]}`, this.cells.length)
+
         if (oldColor != newColor) {
-            this.changeCellColor(0, oldColor, newColor)
+            this.changeCellColor(cellIndex, oldColor, newColor)
         }
 
         return this.tilesChanged.length
@@ -76,9 +76,9 @@ class Grid {
             index = this.getIndexAt(cell.x - 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell && otherCell.color === oldColor) {
+            if (otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell && otherCell.color === newColor) {
+            } else if (otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -87,9 +87,9 @@ class Grid {
             index = this.getIndexAt(cell.x + 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell && otherCell.color === oldColor) {
+            if (otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell && otherCell.color === newColor) {
+            } else if (otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -98,9 +98,9 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y - 1)
             let otherCell = this.cells[index]
 
-            if (otherCell && otherCell.color === oldColor) {
+            if (otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell && otherCell.color === newColor) {
+            } else if (otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -109,9 +109,9 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y + 1)
             let otherCell = this.cells[index]
 
-            if (otherCell && otherCell.color === oldColor) {
+            if (otherCell.color === oldColor) {
                 this.changeCellColor(index, oldColor, newColor)
-            } else if (otherCell && otherCell.color === newColor) {
+            } else if (otherCell.color === newColor) {
                 this.traverseNewCell(index)
             }
         }
@@ -131,7 +131,7 @@ class Grid {
             index = this.getIndexAt(cell.x - 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell && otherCell.color === cell.color) {
+            if (otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
@@ -140,7 +140,7 @@ class Grid {
             index = this.getIndexAt(cell.x + 1, cell.y)
             let otherCell = this.cells[index]
 
-            if (otherCell && otherCell.color === cell.color) {
+            if (otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
@@ -149,7 +149,7 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y - 1)
             let otherCell = this.cells[index]
 
-            if (otherCell && otherCell.color === cell.color) {
+            if (otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
@@ -158,7 +158,7 @@ class Grid {
             index = this.getIndexAt(cell.x, cell.y + 1)
             let otherCell = this.cells[index]
 
-            if (otherCell && otherCell.color === cell.color) {
+            if (otherCell.color === cell.color) {
                 this.traverseNewCell(index)
             }
         }
