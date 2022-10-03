@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { FlatList, View } from 'react-native'
 import ColorSelector from './ColorSelector'
 import GameOver from './GameOver'
+import Menu from './Menu'
 import Scoreboard from './Scoreboard'
 import Settings from './Settings'
 import Game from '../src/game'
@@ -28,10 +29,13 @@ const rows = 15
 export default ({ darkMode, setDarkMode }) => {
     const [cells, setCells] = useState([])
     const [currentColor, setCurrentColor] = useState(0)
+    const [currentPlayer, setCurrentPlayer] = useState(0)
     const [currentTheme, setCurrentTheme] = useState(0)
+    const [gameMode, setGameMode] = useState(1)
     const game = useRef(new Game({
         columns,
         rows,
+        players: gameMode,
         colors: themes[currentTheme],
         startingColor: currentColor,
     }))
@@ -39,6 +43,7 @@ export default ({ darkMode, setDarkMode }) => {
     const gameOver = game.current.gameOver
     const highScore = game.current.highScore
     const turns = game.current.turns?.length
+    const scores = game.current.scores
 
     useEffect(() => {
         // start a new game when loading in
@@ -46,14 +51,30 @@ export default ({ darkMode, setDarkMode }) => {
         restart()
     }, [])
 
+    useEffect(() => {
+        restart()
+    }, [gameMode])
+
     const restart = () => {
+        setCurrentColor(game.current.options.startingColor)
+        game.current = new Game({
+            columns,
+            rows,
+            players: gameMode,
+            colors: themes[currentTheme],
+            startingColor: currentColor,
+        })
         game.current.start()
         setCells(game.current.grid.cells)
     }
 
-    const changeColor = (color, lastColor) => {
-        game.current.changeColor(color)
-        setCurrentColor(color)
+    const changeColor = (color) => {
+        const newColor = game.current.changeColor(color, currentPlayer)
+        if (newColor === color) {
+            const nextPlayer = (currentPlayer + 1) % gameMode
+            setCurrentColor(game.current.playerColor(nextPlayer))
+            setCurrentPlayer(nextPlayer)
+        }
     }
 
     const changeTheme = (theme) => {
@@ -62,16 +83,26 @@ export default ({ darkMode, setDarkMode }) => {
 
     return (
         <View style={tw`flex-1 w-full max-w-3xl mx-auto`}>
-            <Settings
-                currentTheme={currentTheme}
-                darkMode={darkMode}
-                onChangeDarkMode={setDarkMode}
-                onChangeTheme={changeTheme}
-                themes={themes}
-            />
+            <View style={tw`flex-row items-center justify-between`}>
+                <Menu
+                    gameMode={gameMode}
+                    onChangeGameMode={setGameMode}
+                />
+
+                <Settings
+                    currentTheme={currentTheme}
+                    darkMode={darkMode}
+                    onChangeDarkMode={setDarkMode}
+                    onChangeTheme={changeTheme}
+                    themes={themes}
+                />
+            </View>
 
             <Scoreboard
+                currentPlayer={currentPlayer}
+                gameMode={gameMode}
                 highScore={highScore}
+                scores={scores}
                 turns={turns}
             />
 
@@ -92,12 +123,16 @@ export default ({ darkMode, setDarkMode }) => {
                 />
             </View>
 
-            {!gameOver && <ColorSelector
-                colors={themes[currentTheme]}
-                currentColor={currentColor}
-                disabled={gameOver}
-                onChange={(color, lastColor) => changeColor(color, lastColor)}
-            />}
+            {!gameOver &&
+                <ColorSelector
+                    colors={themes[currentTheme]}
+                    currentColor={currentColor}
+                    currentPlayer={currentPlayer}
+                    disabled={gameOver}
+                    players={gameMode}
+                    onChange={changeColor}
+                />
+            }
         </View>
     )
 }

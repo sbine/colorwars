@@ -2,6 +2,8 @@ import { TouchableOpacity, View } from 'react-native'
 import tw from 'twrnc'
 
 export default ({ currentColor, colors = [], disabled = false, onChange = () => { }, size = 'default', style = {} }, ...props) => {
+    const isDisabled = (color) => disabled || color == currentColor
+
     return (
         <View style={tw.style(`flex-row items-center justify-center p-4`, { 'web:min-h-36': size !== 'small' }, style)}>
             {colors.map((color, index) =>
@@ -10,7 +12,7 @@ export default ({ currentColor, colors = [], disabled = false, onChange = () => 
                     accessibilityLabel={color}
                     accessibilityRole='button'
                     accessibilityState={{ disabled, selected: color === currentColor }}
-                    disabled={disabled}
+                    disabled={isDisabled(index)}
                     hitSlop={{
                         top: 5,
                         left: 5,
