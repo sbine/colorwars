@@ -32,6 +32,7 @@ export default ({ darkMode, setDarkMode }) => {
     const [currentPlayer, setCurrentPlayer] = useState(0)
     const [currentTheme, setCurrentTheme] = useState(0)
     const [gameMode, setGameMode] = useState(1)
+    const [width, setWidth] = useState()
     const game = useRef(new Game({
         columns,
         rows,
@@ -115,19 +116,16 @@ export default ({ darkMode, setDarkMode }) => {
 
                 {gameOver && <GameOver onRestart={restart} />}
 
-                <View style={tw`flex-grow items-center justify-center`}>
-                    <FlatList
-                        data={cells}
-                        getItemLayout={(data, index) => (
-                            { length: 8 * 4, offset: 8 * 4 * index, index }
-                        )}
-                        initialNumToRender={cells.length}
-                        numColumns={columns}
-                        refreshing={!cells.length}
-                        removeClippedSubviews={false}
-                        renderItem={({ item }) => <View style={tw`h-8 w-8 bg-${themes[currentTheme][item.color]} border border-gray-100`} />}
-                        scrollEnabled={false}
-                    />
+                <View
+                    style={tw`max-w-md mx-auto flex-row flex-wrap flex-grow items-center justify-center`}
+                    onLayout={(event) => setWidth(Math.floor(event.nativeEvent.layout.width / columns))}
+                >
+                    {cells.map((cell, index) =>
+                        <View
+                            key={index}
+                            style={tw.style(`bg-${themes[currentTheme][cell.color]} border border-gray-100`, { width, height: width })}
+                        />
+                    )}
                 </View>
             </ScrollView>
 
