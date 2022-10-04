@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { FlatList, View } from 'react-native'
+import { FlatList, ScrollView, View } from 'react-native'
 import ColorSelector from './ColorSelector'
 import GameOver from './GameOver'
 import Menu from './Menu'
@@ -83,46 +83,53 @@ export default ({ darkMode, setDarkMode }) => {
     }
 
     return (
-        <View style={tw`flex-1 w-full max-w-3xl mx-auto`}>
-            <View style={tw`flex-row items-center justify-between`}>
-                <Menu
+        <>
+            <ScrollView
+                style={tw`flex-1 w-full max-w-3xl mx-auto`}
+                stickyHeaderIndices={[0]}
+            >
+                <View>
+                    <View style={tw`flex-row items-center justify-between bg-white dark:bg-black py-2`}>
+                        <Menu
+                            gameMode={gameMode}
+                            onChangeGameMode={setGameMode}
+                        />
+
+                        <Settings
+                            currentTheme={currentTheme}
+                            darkMode={darkMode}
+                            onChangeDarkMode={setDarkMode}
+                            onChangeTheme={changeTheme}
+                            themes={themes}
+                        />
+                    </View>
+                </View>
+
+                <Scoreboard
+                    currentPlayer={currentPlayer}
                     gameMode={gameMode}
-                    onChangeGameMode={setGameMode}
+                    highScore={highScore}
+                    scores={scores}
+                    turns={turns}
                 />
 
-                <Settings
-                    currentTheme={currentTheme}
-                    darkMode={darkMode}
-                    onChangeDarkMode={setDarkMode}
-                    onChangeTheme={changeTheme}
-                    themes={themes}
-                />
-            </View>
+                {gameOver && <GameOver onRestart={restart} />}
 
-            <Scoreboard
-                currentPlayer={currentPlayer}
-                gameMode={gameMode}
-                highScore={highScore}
-                scores={scores}
-                turns={turns}
-            />
-
-            {gameOver && <GameOver onRestart={restart} />}
-
-            <View style={tw`flex-grow items-center justify-center`}>
-                <FlatList
-                    data={cells}
-                    getItemLayout={(data, index) => (
-                        { length: 8 * 4, offset: 8 * 4 * index, index }
-                    )}
-                    initialNumToRender={cells.length}
-                    numColumns={columns}
-                    refreshing={!cells.length}
-                    removeClippedSubviews={false}
-                    renderItem={({ item }) => <View style={tw`h-8 w-8 bg-${themes[currentTheme][item.color]} border border-gray-100`} />}
-                    scrollEnabled={false}
-                />
-            </View>
+                <View style={tw`flex-grow items-center justify-center`}>
+                    <FlatList
+                        data={cells}
+                        getItemLayout={(data, index) => (
+                            { length: 8 * 4, offset: 8 * 4 * index, index }
+                        )}
+                        initialNumToRender={cells.length}
+                        numColumns={columns}
+                        refreshing={!cells.length}
+                        removeClippedSubviews={false}
+                        renderItem={({ item }) => <View style={tw`h-8 w-8 bg-${themes[currentTheme][item.color]} border border-gray-100`} />}
+                        scrollEnabled={false}
+                    />
+                </View>
+            </ScrollView>
 
             {!gameOver &&
                 <ColorSelector
@@ -134,6 +141,6 @@ export default ({ darkMode, setDarkMode }) => {
                     onChange={changeColor}
                 />
             }
-        </View>
+        </>
     )
 }

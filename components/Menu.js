@@ -14,7 +14,7 @@ export default ({ gameMode, onChangeGameMode = () => { } }) => {
     }, [gameMode])
 
     return (
-        <View style={tw`items-end mt-2`}>
+        <>
             <TouchableOpacity
                 hitSlop={{
                     top: 10,
@@ -52,6 +52,6 @@ export default ({ gameMode, onChangeGameMode = () => { } }) => {
                     </View>
                 </View>
             </Modal>
-        </View>
+        </>
     )
 }

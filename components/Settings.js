@@ -14,7 +14,7 @@ export default ({ currentTheme, darkMode, onChangeDarkMode = () => { }, onChange
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <View style={tw`items-end mt-2`}>
+        <>
             <TouchableOpacity
                 hitSlop={{
                     top: 10,
@@ -72,6 +72,6 @@ export default ({ currentTheme, darkMode, onChangeDarkMode = () => { }, onChange
                     </SafeAreaView>
                 </SafeAreaProvider>
             </Modal>
-        </View>
+        </>
     )
 }
