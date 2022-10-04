@@ -23,7 +23,7 @@ const themes = [
     ],
 ]
 
-const columns = 11
+const columns = 12
 const rows = 15
 
 export default ({ darkMode, setDarkMode }) => {
