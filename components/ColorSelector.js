@@ -5,7 +5,7 @@ export default ({ currentColor, colors = [], disabled = false, onChange = () => 
     const isDisabled = (color) => disabled || color == currentColor
 
     return (
-        <View style={tw.style(`flex-row items-center justify-center p-4`, { 'web:min-h-36': size !== 'small' }, style)}>
+        <View style={tw.style(`flex-row items-center justify-center bg-white dark:bg-black p-4`, { 'web:min-h-36': size !== 'small' }, style)}>
             {colors.map((color, index) =>
                 <TouchableOpacity
                     key={color}
